@@ -25,6 +25,11 @@ const Book = sequelize.define("Books", {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  deleted: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  },
 });
 
 Book.belongsTo(Library, { foreignKey: "libraryId" });
