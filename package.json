@@ -1,4 +1,13 @@
 {
+  "name": "xacademy",
+  "version": "1.0.0",
+  "description": "Nuestro primer proyecto con Node",
+  "main": "src/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "nsecchi",
+  "license": "ISC",
   "dependencies": {
     "axios": "^1.4.0",
     "body-parser": "^1.20.2",
@@ -9,9 +18,5 @@
     "passport-local": "^1.0.0",
     "sequelize": "^6.31.1",
     "sqlite3": "^5.1.6"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.22",
-    "sequelize-cli": "^6.6.0"
   }
 }
