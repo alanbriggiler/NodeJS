@@ -30,6 +30,8 @@ const Book = sequelize.define("Books", {
     allowNull: false,
     defaultValue: false,
   },
+}, {
+  paranoid: true, // Agrega eliminación lógica
 });
 
 Book.belongsTo(Library, { foreignKey: "libraryId" });

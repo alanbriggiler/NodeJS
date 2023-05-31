@@ -21,6 +21,8 @@ const Library = sequelize.define("Library", {
     type: DataTypes.STRING,
     allowNull: false,
   },
+}, {
+  paranoid: true, // Agrega eliminación lógica
 });
 
 Library.hasMany(Book, { onDelete: "cascade" });
