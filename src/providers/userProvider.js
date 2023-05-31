@@ -26,18 +26,16 @@ const getUser = async (id) => {
 
 const getUsers = async (criteria) => {
   try {
-    let options = { include: [{ all: true }] };
+    let options = { include: [{ all: true }], where: { deleted: false } };
     if (criteria) {
-      options = { ...options, where: { [Op.or]: criteria } };
+      options = { ...options, where: { ...options.where, [Op.or]: criteria } };
     }
     const users = await User.findAll(options);
 
     if (users) {
       return users;
     } else {
-      throw new Error(
-        "No se encontraron usuarios con ese criterio de busqueda"
-      );
+      throw new Error("No se encontraron usuarios con ese criterio de búsqueda");
     }
   } catch (error) {
     throw error;
@@ -48,7 +46,7 @@ const updateUser = async (userId, userOptions) => {
   try {
     await getUser(userId);
     const [numRowsUpdated] = await User.update(userOptions, {
-      where: { id: userId },
+      where: { id: userId, deleted: false },
     });
     console.log(`Se actualizaron ${numRowsUpdated} filas en la DB`);
     return User.findByPk(userId);
@@ -59,7 +57,10 @@ const updateUser = async (userId, userOptions) => {
 
 const deleteUser = async (userId) => {
   try {
-    return User.destroy({ where: { id: userId } });
+    const user = await getUser(userId);
+    user.deleted = true;
+    await user.save();
+    return user;
   } catch (error) {
     throw error;
   }
@@ -68,7 +69,7 @@ const deleteUser = async (userId) => {
 const validateUser = async (email, password) => {
   try {
     const user = await User.findOne({
-      where: { email, password },
+      where: { email, password, deleted: false },
     });
     if (user) {
       return user;
