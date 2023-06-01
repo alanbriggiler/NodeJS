@@ -15,7 +15,7 @@ axios
         const usuario = response.data;
         console.log("Usuario encontrado!!");
         console.log(
-          `El usuario se llama ${usuario.nombre} ${usuario.apellido} y tiene ${usuario.Tickets.length} tickets`
+          `El usuario se llama ${usuario.nombre} ${usuario.apellido}}`
         );
       });
   })

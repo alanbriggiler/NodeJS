@@ -1,6 +1,5 @@
 const { DataTypes } = require("sequelize");
 const { sequelize } = require("../config/dbConfig");
-const Book = require("./book");
 
 const Library = sequelize.define("Library", {
   id: {
@@ -24,7 +23,5 @@ const Library = sequelize.define("Library", {
 }, {
   paranoid: true, // Agrega eliminación lógica
 });
-
-Library.hasMany(Book, { onDelete: "cascade" });
 
 module.exports = Library;
