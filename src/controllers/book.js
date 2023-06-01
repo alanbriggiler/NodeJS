@@ -58,4 +58,25 @@ async function updateBook(req, res) {
 
 // Controlador para eliminar un libro por su ID
 async function deleteBook(req, res) {
-  const {
+  const { id } = req.params;
+
+  try {
+    const book = await Book.findByPk(id);
+    if (book) {
+      await book.destroy();
+      res.status(200).json({ message: 'Libro eliminado correctamente' });
+    } else {
+      res.status(404).json({ error: 'Libro no encontrado' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'Error al eliminar el libro' });
+  }
+}
+
+module.exports = {
+  getAllBooks,
+  createBook,
+  getBookById,
+  updateBook,
+  deleteBook,
+};
